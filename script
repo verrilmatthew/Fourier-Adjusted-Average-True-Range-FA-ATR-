@@ -1,0 +1,27 @@
+//@version=6
+//  The Quant
+indicator("M2 Global Liquidity Index™", overlay=false, scale=scale.left)
+
+// Fetch M2 data for different economies
+cnm2    = request.security("ECONOMICS:CNM2", "D", close)
+cnyusd  = request.security("FX_IDC:CNYUSD", "D", close)
+
+usm2    = request.security("ECONOMICS:USM2", "D", close)
+
+eum2    = request.security("ECONOMICS:EUM2", "D", close)
+eurusd  = request.security("FX:EURUSD", "D", close)
+
+jpm2    = request.security("ECONOMICS:JPM2", "D", close)
+jpyusd  = request.security("FX_IDC:JPYUSD", "D", close)
+
+gbm2    = request.security("ECONOMICS:GBM2", "D", close)
+gbpusd  = request.security("FX:GBPUSD", "D", close)
+
+// Define offset (default 74 bars forward)
+offset = input.int(74, title="Offset")
+
+// Calculate total Liquidity Index
+total = (cnm2 * cnyusd + usm2 + eum2 * eurusd + jpm2 * jpyusd + gbm2 * gbpusd) / 10000000000
+
+// Plot the total Liquidity Index with offset
+plot(total, color=color.yellow, linewidth=2, offset=offset)
