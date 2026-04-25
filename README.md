@@ -1,1 +1,0 @@
-# Fourier-Adjusted-Average-True-Range-FA-ATR-
